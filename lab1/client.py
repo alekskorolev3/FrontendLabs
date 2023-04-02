@@ -13,6 +13,7 @@ UDP_PORT = 8889
 tcp_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcp_sock.connect((TCP_HOST, TCP_PORT))
 
+
 # Send a message to the server to indicate that the client is ready to start
 tcp_sock.send("start".encode())
 

@@ -1,38 +1,150 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: "Euclid Circular A";
+    src: url("/fonts/EuclidCircularA-Bold.eot");
+    src: local("Euclid Circular A Bold"), local("EuclidCircularA-Bold"),
+    url("/fonts/EuclidCircularA-Bold.eot?#iefix")
+    format("embedded-opentype"),
+    url("/fonts/EuclidCircularA-Bold.woff2") format("woff2"),
+    url("/fonts/EuclidCircularA-Bold.woff") format("woff"),
+    url("/fonts/EuclidCircularA-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: "Euclid Circular A";
+    src: url("/fonts/EuclidCircularA-SemiBold.eot");
+    src: local("Euclid Circular A SemiBold"), local("EuclidCircularA-SemiBold"),
+    url("/fonts/EuclidCircularA-SemiBold.eot?#iefix")
+    format("embedded-opentype"),
+    url("/fonts/EuclidCircularA-SemiBold.woff2")
+    format("woff2"),
+    url("/fonts/EuclidCircularA-SemiBold.woff")
+    format("woff"),
+    url("/fonts/EuclidCircularA-SemiBold.ttf")
+    format("truetype");
+    font-weight: 600;
+    font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+    font-family: "Euclid Circular A";
+    src: url("/fonts/EuclidCircularA-Medium.eot");
+    src: local("Euclid Circular A Medium"), local("EuclidCircularA-Medium"),
+    url("/fonts/EuclidCircularA-Medium.eot?#iefix")
+    format("embedded-opentype"),
+    url("/fonts/EuclidCircularA-Medium.woff2")
+    format("woff2"),
+    url("/fonts/EuclidCircularA-Medium.woff") format("woff"),
+    url("/fonts/EuclidCircularA-Medium.ttf")
+    format("truetype");
+    font-weight: 500;
+    font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+    font-family: "Euclid Circular A";
+    src: url("/fonts/EuclidCircularA-Regular.eot");
+    src: local("Euclid Circular A Regular"), local("EuclidCircularA-Regular"),
+    url("/fonts/EuclidCircularA-Regular.woff2")
+    format("woff2"),
+    url("/fonts/EuclidCircularA-Regular.woff") format("woff"),
+    url("/fonts/EuclidCircularA-Regular.ttf")
+    format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
-.App-link {
-  color: #61dafb;
+@font-face {
+    font-family: "Euclid Circular A";
+    src: url("/fonts/EuclidCircularA-Light.eot");
+    src: local("Euclid Circular A Light"), local("EuclidCircularA-Light"),
+    url("/fonts/EuclidCircularA-Light.eot?#iefix")
+    format("embedded-opentype"),
+    url("/fonts/EuclidCircularA-Light.woff2") format("woff2"),
+    url("/fonts/EuclidCircularA-Light.woff") format("woff"),
+    url("/fonts/EuclidCircularA-Light.ttf")
+    format("truetype");
+    font-weight: 300;
+    font-style: normal;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+body {
+    font-family: "Euclid Circular A", sans-serif;
+}
+
+a {
+    color: unset;
+    text-decoration: none;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 15px;
+}
+
+.label {
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    font-size: 16px;
+    line-height: 20px;
+    color: #787878;
+}
+
+.input {
+    height: 47px;
+    border: 1.5px solid #EBEAEA;
+    border-radius: 5px;
+    padding: 0 15px;
+}
+
+input::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #B8B8B7;
+}
+
+.input:focus {
+    background: #F2F2F2;
+    border: 1.5px solid #EBEAEA;
+}
+
+input:focus-visible {
+    outline: unset;
+}
+
+.skillInput {
+    height: 47px;
+    border: 1.5px solid #222222;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right: 35px;
+    background-size: 30px;
+    background: url("img/iconPlus.svg") no-repeat right 5px center;
+}
+
+
+
+.skillInput:focus {
+    background-color: #F2F2F2;
+}
+
+.buttonsContainer {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    align-items: center;
+}
+
+.inputContainer {
+    display: flex;
+    gap: 30px;
+    padding: 0 30px 30px;
+    align-items: center;
 }

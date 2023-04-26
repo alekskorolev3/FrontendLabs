@@ -1,0 +1,82 @@
+.hero {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+    justify-content: center;
+    padding: 80px 100px;
+}
+
+.hero h1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    letter-spacing: -0.03em;
+    color: #222222;
+    margin: 0;
+}
+
+.hero h2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+    color: #787878;
+    margin: 0;
+}
+
+.heroData {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    gap: 30px;
+    width: 60%;
+}
+
+.illustration {
+    width: 40%;
+    max-width: 350px;
+}
+
+@media (min-width: 768px) and (max-width: 985px) {
+    .hero {
+        padding: 30px 60px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero {
+        padding: 30px 30px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero h2 {
+        font-size: 20px;
+    }
+
+    .hero {
+        flex-direction: column;
+    }
+
+    .heroData {
+        order: 2;
+        width: 80%;
+    }
+
+    .illustration {
+        order: 1;
+        width: 100%;
+    }
+}

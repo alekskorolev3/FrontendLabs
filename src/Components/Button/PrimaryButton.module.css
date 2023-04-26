@@ -1,0 +1,52 @@
+.button {
+    font-family: "Euclid Circular A", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    background: #F7634A;
+    border-radius: 30px;
+    border: none;
+    transition: 0.3s;
+}
+
+.buttonIcon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+}
+
+.buttonText {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+/*.button:hover {*/
+/*    background: #E3E3E3;*/
+/*}*/
+
+.button:hover .buttonText {
+    color: #787878;
+}
+
+@media screen and (max-width: 1100px) {
+    .button {
+        padding: 10px 15px;
+    }
+
+    .buttonIcon {
+        padding: 7px;
+    }
+
+    .buttonText {
+        font-size: 16px;
+    }
+}

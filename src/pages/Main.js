@@ -11,7 +11,9 @@ const Main = () => {
             <main>
                 <div className={styles.mainHeader}>
                     <h1>Мои резюме</h1>
-                    <PrimaryButton text="Добавить"/>
+                    <a href="/create">
+                        <PrimaryButton text="Добавить"/>
+                    </a>
                 </div>
 
                 <ul className={styles.cvList}>

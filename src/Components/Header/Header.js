@@ -12,7 +12,9 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <div className={styles.innerWrapper}>
-                <img src={logo} alt="logo" className={styles.logo}/>
+                <a href="/">
+                    <img src={logo} alt="logo" className={styles.logo}/>
+                </a>
                 <ul className={styles.links} style={{display: isOpen ? "none" : "flex"}}>
                     <li>
                         <a href="#">Услуги</a>
@@ -30,8 +32,10 @@ const Header = () => {
             </div>
 
             <div className={styles.loginWrapper}>
-                <a href="#">Войти</a>
-                <PrimaryButton text="Регистрация"/>
+                <a href="/login">Войти</a>
+                <a href="/registration">
+                    <PrimaryButton text="Регистрация"/>
+                </a>
             </div>
 
             <div className={styles.hamburgerButton} onClick={() => setIsOpen(!isOpen)}>

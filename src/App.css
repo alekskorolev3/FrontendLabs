@@ -74,6 +74,10 @@ body {
     font-family: "Euclid Circular A", sans-serif;
 }
 
+iframe {
+    border: none;
+}
+
 a {
     color: unset;
     text-decoration: none;

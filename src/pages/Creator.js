@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import styles from "./Creator.module.css"
 import Header from "../Components/Header/Header";
-import avatar from "../img/avatar.svg";
+import avatarBlank from "../img/avatarBlank.jpeg"
 import SecondaryButton from "../Components/Button/SecondaryButton";
 import PrimaryButton from "../Components/Button/PrimaryButton";
 import Rating from "../Components/Rating/Rating";
@@ -10,14 +10,22 @@ import accordion from "../img/acc_icon.svg"
 import trash from "../img/trash.svg"
 import {useNavigate} from "react-router-dom";
 import {v4 as uuidv4} from 'uuid';
+import {BlobProvider, Document, Font, Image, Page, PDFDownloadLink, PDFViewer, Text, View} from '@react-pdf/renderer';
+import {Document as Doc, Page as Pg} from 'react-pdf/dist/esm/entry.webpack';
+
 
 const Creator = () => {
 
+    // pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.worker.min.js';
+
+
     const [step, setStep] = useState(0);
 
+    const [image, setImage] = useState(avatarBlank)
+
     const [formData, setFormData] = useState({
-        personalInfo: [],
-        bio: [],
+        personalInfo: {},
+        bio: {},
         workExperience: [],
         edu: [],
         skills: []
@@ -74,10 +82,10 @@ const Creator = () => {
     function handleSubmit(e) {
         e.preventDefault()
 
-        let _d = []
+        let _d = {}
 
         for (let [key, value] of new FormData(e.target)) {
-            _d.push({key, value})
+            _d[key] = value
         }
 
         if (step === 0) {
@@ -98,6 +106,10 @@ const Creator = () => {
 
     }
 
+    function handleImage(e) {
+        e.preventDefault()
+        setImage(URL.createObjectURL(e.target.files[0]))
+    }
 
     function getContent(step) {
         switch (step) {
@@ -194,8 +206,11 @@ const Creator = () => {
                                                         <div className={styles.tabLabelInner}>
                                                             <img src={accordion} alt="acc_icon"/>
                                                             <div className={styles.tabLabelInfo}>
-                                                                <span className={styles.tabTitle}>Google</span>
-                                                                <span className={styles.tabDescription}>Сентябрь 2020 - Май 2022</span>
+                                                                <span
+                                                                    className={styles.tabTitle}>{tab.company ? tab.company : "Название компании"}</span>
+                                                                <span className={styles.tabDescription}>
+                                                                    {`${tab.dateBegin ? tab.dateBegin : "2022-01-01"} - ${tab.dateEnd ? tab.dateEnd : "2023-01-01"}`}
+                                                                </span>
                                                             </div>
                                                         </div>
 
@@ -311,8 +326,11 @@ const Creator = () => {
                                                         <div className={styles.tabLabelInner}>
                                                             <img src={accordion} alt="acc_icon"/>
                                                             <div className={styles.tabLabelInfo}>
-                                                                <span className={styles.tabTitle}>БГУИР</span>
-                                                                <span className={styles.tabDescription}>Сентябрь 2020 - Май 2022</span>
+                                                                <span
+                                                                    className={styles.tabTitle}>{tab.institution ? tab.institution : "Название заведения"}</span>
+                                                                <span className={styles.tabDescription}>
+                                                                    {`${tab.dateBegin ? tab.dateBegin : "2022-01-01"} - ${tab.dateEnd ? tab.dateEnd : "2023-01-01"}`}
+                                                                </span>
                                                             </div>
                                                         </div>
 
@@ -452,9 +470,33 @@ const Creator = () => {
             case 5:
                 return (
                     <>
-                        {
-                            JSON.stringify(formData)
-                        }
+                        <h1>Ваше резюме готово!</h1>
+
+                        <div className={styles.canvasMobile}>
+                            <BlobProvider document={<MyDoc/>}>
+                                {({blob, url, loading}) => (
+                                    <Doc file={url} renderMode="canvas" width="300">
+                                        <Pg pageNumber={1} width={window.innerWidth} renderTextLayer={false}
+                                            renderAnnotationLayer={false} width="300"/>
+                                    </Doc>
+                                )}
+                            </BlobProvider>
+                        </div>
+
+
+                        <div className={styles.buttonPanel}>
+                            <div onClick={() => navigate("/")}>
+                                <SecondaryButton text="Вернуться в меню"/>
+                            </div>
+
+                            <PDFDownloadLink document={<MyDoc/>}
+                                             fileName={`${formData.personalInfo.firstName}'s_CV.pdf`}
+                                             className={styles.downloadLink}>
+                                {({blob, url, loading, error}) =>
+                                    loading ? 'Подготовка документа...' : 'Скачать'
+                                }
+                            </PDFDownloadLink>
+                        </div>
                     </>
                 )
 
@@ -465,6 +507,167 @@ const Creator = () => {
         }
     }
 
+    Font.register({
+        family: "Roboto",
+        fonts: [
+            {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-thin-webfont.ttf",
+                fontWeight: 100
+            },
+            {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+                fontWeight: 300
+            },
+            {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf",
+                fontWeight: 500
+            },
+            {
+                src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
+                fontWeight: 700
+            }
+        ]
+    });
+
+    const MyDoc = () => (
+        <Document style={{width: "100%", fontFamily: "Roboto"}}>
+            <Page size="A4" style={{padding: "20pt 50pt"}}>
+                <View style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "40pt 0pt"
+                }}>
+                    <Image src={image}
+                           style={{width: "80pt", height: "80pt", borderRadius: "40pt", objectFit: "cover"}}/>
+                    <View style={{padding: "0pt 20pt"}}>
+                        <View style={{display: "flex", flexDirection: "row"}}>
+                            <Text style={{fontSize: "28pt", fontWeight: 700, paddingRight: "10pt"}}>
+                                {formData.personalInfo.firstName ? formData.personalInfo.firstName : "Иван"}
+                            </Text>
+
+                            <Text style={{fontSize: "28pt", fontWeight: 700}}>
+                                {formData.personalInfo.lastName ? formData.personalInfo.lastName : "Иванов"}
+                            </Text>
+                        </View>
+
+                        <Text style={{fontSize: "18pt", fontWeight: 300}}>
+                            {formData.personalInfo.email ? formData.personalInfo.email : "ivanov_ivan@gmail.com"}
+                        </Text>
+                    </View>
+                </View>
+
+                <View style={{paddingBottom: "20pt"}}>
+                    <Text style={{
+                        fontSize: "24pt",
+                        fontWeight: 700
+                    }}>{formData.personalInfo.position ? formData.personalInfo.position : "Должность"}</Text>
+                </View>
+
+                <View>
+                    <Text style={{fontSize: "24pt", color: "orange", paddingBottom: "10pt"}}>Краткая биография</Text>
+                    <Text style={{fontSize: "15pt", fontWeight: 300, padding: "0pt 10pt 10pt"}}>
+                        {formData.bio.bio ? formData.bio.bio : "Пример краткой биографии"}
+                    </Text>
+                </View>
+
+                <View>
+                    <Text style={{fontSize: "24pt", color: "orange", paddingBottom: "10pt"}}>Опыт работы</Text>
+                    {
+                        formData.workExperience.length !== 0 ?
+                            formData.workExperience.map((work) => (
+                                <View key={work.id} style={{padding: "0pt 10pt 10pt"}}>
+                                    <Text style={{
+                                        fontSize: "18pt",
+                                        fontWeight: 700
+                                    }}>{`${work.company} | ${work.place}`}</Text>
+                                    <Text style={{
+                                        fontSize: "12pt",
+                                        fontWeight: 300
+                                    }}>{`${work.dateBegin} – ${work.dateEnd}`}</Text>
+                                    <Text style={{fontSize: "16pt", fontWeight: 700}}>{work.workPost}</Text>
+                                    <Text style={{fontSize: "15pt", fontWeight: 300}}>{work.workExperience}</Text>
+                                </View>
+                            ))
+                            :
+                            (
+                                <>
+                                    <View style={{padding: "0pt 10pt 10pt", color: "#787878"}}>
+                                        <Text style={{fontSize: "18pt", fontWeight: 700}}>Google | Минск</Text>
+                                        <Text style={{fontSize: "12pt", fontWeight: 300}}>2022-01-01 – 2023-01-10</Text>
+                                        <Text style={{fontSize: "16pt", fontWeight: 700}}>Разработчик ПО</Text>
+                                        <Text style={{fontSize: "15pt", fontWeight: 300}}>
+                                            Стек технологий - это часто используемые ORM (Hibernate, Sequelize),
+                                            Spring, REST (Spring MVC), View (React), Redux.
+                                        </Text>
+                                    </View>
+                                </>
+                            )
+                    }
+                </View>
+
+                <View>
+                    <Text style={{fontSize: "24pt", color: "orange", paddingBottom: "10pt"}}>Образование</Text>
+                    {
+                        formData.edu.length !== 0 ?
+                            formData.edu.map((edu) => (
+                                <View key={edu.id} style={{padding: "0pt 10pt 10pt"}}>
+                                    <Text style={{
+                                        fontSize: "18pt",
+                                        fontWeight: 700
+                                    }}>{`${edu.institution} | ${edu.place}`}</Text>
+                                    <Text style={{
+                                        fontSize: "12pt",
+                                        fontWeight: 300
+                                    }}>{`${edu.dateBegin} – ${edu.dateEnd}`}</Text>
+                                    <Text style={{fontSize: "16pt", fontWeight: 700}}>{edu.speciality}</Text>
+                                    <Text style={{fontSize: "15pt", fontWeight: 300}}>{edu.eduExperience}</Text>
+                                </View>
+                            ))
+                            :
+                            (
+                                <>
+                                    <View style={{padding: "0pt 10pt 10pt", color: "#787878"}}>
+                                        <Text style={{fontSize: "18pt", fontWeight: 700}}>БГУИР | Минск</Text>
+                                        <Text style={{fontSize: "12pt", fontWeight: 300}}>2022-01-01 – 2023-01-10</Text>
+                                        <Text style={{fontSize: "16pt", fontWeight: 700}}>Информатика и технологии
+                                            программирования</Text>
+                                        <Text style={{fontSize: "15pt", fontWeight: 300}}>
+                                            Стек технологий - это часто используемые ORM (Hibernate, Sequelize),
+                                            Spring, REST (Spring MVC), View (React), Redux.
+                                        </Text>
+                                    </View>
+                                </>
+                            )
+                    }
+                </View>
+
+                <View>
+                    <Text style={{fontSize: "24pt", color: "orange", paddingBottom: "10pt"}}>Навыки</Text>
+                    {
+                        formData.skills.length !== 0 ?
+                            formData.skills.map((skill) => (
+                                <View key={skill.id} style={{padding: "0pt 10pt 10pt"}}>
+                                    <Text style={{fontSize: "18pt", fontWeight: 700}}>{skill.name}</Text>
+                                    <Text style={{fontSize: "18pt", fontWeight: 700}}>{skill.rating}</Text>
+                                </View>
+                            ))
+                            :
+                            (
+                                <>
+                                    <View style={{padding: "0pt 10pt 10pt", color: "#787878"}}>
+                                        <Text style={{fontSize: "18pt", fontWeight: 700}}>Коммуникабельность</Text>
+                                        <Text style={{fontSize: "18pt", fontWeight: 700}}>5</Text>
+                                    </View>
+                                </>
+                            )
+                    }
+                </View>
+            </Page>
+        </Document>
+    )
 
     return (
         <>
@@ -476,16 +679,32 @@ const Creator = () => {
                     <div className={styles.data}>
                         <div className={styles.headerWrapper}>
                             <div className={styles.headerInnerWrapper}>
-                                <img src={avatar} alt="avatar"/>
-                                <span>Артём Уласевич</span>
+                                <div className={styles.personalImage}>
+                                    <label>
+                                        <input type="file" accept="image/jpeg, image/png" onChange={handleImage}/>
+                                        <figure className={styles.personalFigure}>
+                                            <img src={image} className={styles.personalAvatar} alt="avatar"/>
+                                            <figcaption className={styles.personalFigcaption}>
+                                                <img alt="photo"
+                                                    src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png"/>
+                                            </figcaption>
+                                        </figure>
+                                    </label>
+                                </div>
+
+                                <span>
+                                    {`${formData.personalInfo.firstName ? formData.personalInfo.firstName : "Иван"}
+                                      ${formData.personalInfo.lastName ? formData.personalInfo.lastName : "Иванов"} 
+                                    `}
+                                </span>
                             </div>
 
                             <div className={styles.progressBar}
                                  style={{
                                      background: `radial-gradient(closest-side, white 79%, transparent 80% 100%), 
-                                                   conic-gradient(#F7634A ${(step + 1) * 20}%, white 0)`
+                                                   conic-gradient(#F7634A ${(step + 1) * 20 <= 100 ? (step + 1) * 20 : 100}%, white 0)`
                                  }}
-                                 data-percentage={`${(step + 1) * 20}%`}>
+                                 data-percentage={`${(step + 1) * 20 <= 100 ? (step + 1) * 20 : 100}%`}>
                                 <progress style={{visibility: "hidden", height: "0", width: "0"}}>
 
                                 </progress>
@@ -500,7 +719,9 @@ const Creator = () => {
                     </div>
 
                     <div className={styles.canvas}>
-
+                        <PDFViewer width="100%" height="500px" showToolbar={false}>
+                            <MyDoc/>
+                        </PDFViewer>
                     </div>
                 </main>
 

@@ -5,7 +5,7 @@
 
 .canvas {
     width: 50%;
-
+    padding-top: 30px;
 }
 
 textarea {
@@ -50,6 +50,58 @@ textarea::placeholder {
     align-items: center;
     gap: 15px;
 }
+
+
+.personalImage {
+    text-align: center;
+}
+.personalImage input[type="file"] {
+    display: none;
+}
+.personalFigure {
+    margin: 0;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.personalAvatar {
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    box-sizing: border-box;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    transition: all ease-in-out .3s;
+    object-fit: cover;
+}
+.personalAvatar:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+.personalFigcaption {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all ease-in-out .3s;
+}
+.personalFigcaption:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, .5);
+}
+.personalFigcaption > img {
+    margin-top: 24px;
+    width: 25px;
+    height: 25px;
+}
+
+
+
+
 
 .innerWrapper {
     display: flex;
@@ -328,10 +380,18 @@ input:checked ~ .tabContent {
     color: #F7634A;
 }
 
+.downloadLink {
+    transition: 0.3s all;
+}
+
+.downloadLink:hover {
+    color: #F7634A;
+}
+
 @media (min-width: 986px) and (max-width: 9999px) {
     .buttonPanel {
         position: unset;
-        padding: 0 130px;
+        padding: 0;
         border: none;
         width: unset;
     }
@@ -370,6 +430,10 @@ input:checked ~ .tabContent {
     background-color: #F2F2F2;
 }
 
+/*.canvasMobile {*/
+/*    display: none;*/
+/*}*/
+
 @media screen and (max-width: 985px) {
     main {
         display: flex;
@@ -382,5 +446,9 @@ input:checked ~ .tabContent {
 
     .canvas {
         display: none;
+    }
+
+    .canvasMobile {
+        display: unset;
     }
 }

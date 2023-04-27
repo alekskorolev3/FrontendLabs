@@ -11,7 +11,9 @@ const Login = () => {
             <main className={styles.wrapper}>
                 <div className={styles.headWrapper}>
                     <div className={styles.headButtonWrapper}>
-                        <PrimaryButton icon={icon}/>
+                        <a href="/">
+                            <PrimaryButton icon={icon}/>
+                        </a>
                     </div>
                     <span>Вход</span>
                 </div>

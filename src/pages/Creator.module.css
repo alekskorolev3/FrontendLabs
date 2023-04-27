@@ -111,13 +111,14 @@ textarea::placeholder {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    transition: all 0.3s;
     background:
             radial-gradient(closest-side, white 79%, transparent 80% 100%),
             conic-gradient(#F7634A 75%, white 0);
 }
 
 .progressBar::before {
-    content: "75%";
+    content: attr(data-percentage);
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -209,9 +210,17 @@ input:focus-visible {
 .tabLabelInner {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     padding: 0;
     gap: 10px;
+    width: 100%;
+}
+
+.tabLabelWrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-right: 15px;
 }
 
 .tabTitle {
@@ -235,7 +244,7 @@ input:focus-visible {
 
 }
 
-.tabLabelInner div {
+.tabLabelInfo {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -343,6 +352,22 @@ input:checked ~ .tabContent {
         font-size: 20px;
         letter-spacing: -0.06em;
     }
+}
+
+
+.skillInput {
+    height: 47px;
+    border: 1.5px solid #222222;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right: 35px;
+    background-size: 30px;
+    background: url("../img/iconPlus.svg") no-repeat right 5px center;
+    width: calc(100% - 53px);
+}
+
+.skillInput:focus {
+    background-color: #F2F2F2;
 }
 
 @media screen and (max-width: 985px) {

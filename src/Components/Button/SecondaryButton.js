@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SecondaryButton.module.css"
 
 const PrimaryButton = ({text, icon}) => (
-    <button className={icon ? `${styles.button} ${styles.buttonIcon}` : styles.button}>
+    <button type="button" className={icon ? `${styles.button} ${styles.buttonIcon}` : styles.button}>
         {
             !icon ?
                 <span className={styles.buttonText}>{text}</span>

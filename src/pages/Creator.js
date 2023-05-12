@@ -8,7 +8,7 @@ import Rating from "../Components/Rating/Rating";
 import addIcon from "../img/add_icon.svg"
 import accordion from "../img/acc_icon.svg"
 import trash from "../img/trash.svg"
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {v4 as uuidv4} from 'uuid';
 import {BlobProvider, Document, Font, Image, Page, PDFDownloadLink, PDFViewer, Text, View} from '@react-pdf/renderer';
 import {Document as Doc, Page as Pg} from 'react-pdf/dist/esm/entry.webpack';
@@ -486,15 +486,15 @@ const Creator = () => {
 
                         <div className={styles.buttonPanel}>
                             <div onClick={() => navigate("/")}>
-                                <SecondaryButton text="Вернуться в меню"/>
+                                <Link to="/home">
+                                    <SecondaryButton text="Вернуться в меню"/>
+                                </Link>
                             </div>
 
                             <PDFDownloadLink document={<MyDoc/>}
                                              fileName={`${formData.personalInfo.firstName}'s_CV.pdf`}
                                              className={styles.downloadLink}>
-                                {({blob, url, loading, error}) =>
-                                    loading ? 'Подготовка документа...' : 'Скачать'
-                                }
+                                <PrimaryButton text='Скачать'/>
                             </PDFDownloadLink>
                         </div>
                     </>

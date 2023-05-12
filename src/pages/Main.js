@@ -3,6 +3,7 @@ import styles from "./Main.module.css"
 import Header from "../Components/Header/Header";
 import PrimaryButton from "../Components/Button/PrimaryButton";
 import Card from "../Components/Card/Card";
+import {Link} from "react-router-dom";
 
 const Main = () => {
     return (
@@ -11,9 +12,9 @@ const Main = () => {
             <main>
                 <div className={styles.mainHeader}>
                     <h1>Мои резюме</h1>
-                    <a href="/create">
+                    <Link to="/create">
                         <PrimaryButton text="Добавить"/>
-                    </a>
+                    </Link>
                 </div>
 
                 <ul className={styles.cvList}>

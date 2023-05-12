@@ -38,6 +38,14 @@
     color: #787878;
 }
 
+.links li a {
+    transition: 0.3s all;
+}
+
+.links li a:hover {
+    color: #F7634A;
+}
+
 .loginWrapper {
     display: flex;
     flex-direction: row;

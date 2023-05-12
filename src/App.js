@@ -9,11 +9,13 @@ import Creator from "./pages/Creator";
 function App() {
   return (
     <Routes>
-        <Route path="/" element={<Landing/>}/>
+
         <Route path="/home" element={<Main/>}/>
         <Route path="/create" element={<Creator/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/registration" element={<Registration/>}/>
+
+        <Route path="/" element={<Landing/>}/>
     </Routes>
   );
 }

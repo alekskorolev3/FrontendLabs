@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.8fe8a84c.css",
-    "main.js": "/static/js/main.93e301d4.js",
+    "main.css": "/static/css/main.8b6ce84e.css",
+    "main.js": "/static/js/main.b3d45f51.js",
     "pdf.worker.js": "/f7edf02575c86c5ac7a5ae8fb705d825.js",
     "static/media/cover1.svg": "/static/media/cover1.6a97c6998c9f86e712992cd77817c977.svg",
     "static/media/EuclidCircularA-Medium.eot": "/static/media/EuclidCircularA-Medium.f253ed00b380763f4d15.eot",
@@ -36,11 +36,11 @@
     "static/media/menu.svg": "/static/media/menu.458f8bbe629b7049bd9109cef34759b8.svg",
     "static/media/iconPlus.svg": "/static/media/iconPlus.579eab024fc512f72201.svg",
     "static/media/arrowLeft.svg": "/static/media/arrowLeft.55b3fce4de8a472fad9174e3991e64af.svg",
-    "main.8fe8a84c.css.map": "/static/css/main.8fe8a84c.css.map",
-    "main.93e301d4.js.map": "/static/js/main.93e301d4.js.map"
+    "main.8b6ce84e.css.map": "/static/css/main.8b6ce84e.css.map",
+    "main.b3d45f51.js.map": "/static/js/main.b3d45f51.js.map"
   },
   "entrypoints": [
-    "static/css/main.8fe8a84c.css",
-    "static/js/main.93e301d4.js"
+    "static/css/main.8b6ce84e.css",
+    "static/js/main.b3d45f51.js"
   ]
 }

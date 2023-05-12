@@ -108,7 +108,9 @@ const Login = () => {
                 <div className={styles.methodsWrapper}>
                     <span>Или продолжите с </span>
                     <div className={styles.methodsInnerWrapper}>
-                        <img src={google} onClick={handleGoogleAuth}/>
+                        <span onClick={handleGoogleAuth}>
+                            <img src={google} />
+                        </span>
                     </div>
 
                     <div className={styles.regWrapper}>

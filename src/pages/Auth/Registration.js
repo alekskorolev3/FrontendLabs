@@ -6,13 +6,14 @@ import google from "../../img/google.svg";
 import fb from "../../img/fb.svg";
 import {useDispatch} from "react-redux";
 import {Link, useNavigate} from "react-router-dom"
-import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import {getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {setUser} from "../../store/slices/userSlice";
 
 const Registration = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const provider = new GoogleAuthProvider();
 
     const [inputs, setInputs] = useState({})
 
@@ -20,6 +21,27 @@ const Registration = () => {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}))
+    }
+
+    const handleGoogleAuth = () => {
+        const auth = getAuth();
+
+        console.log("here")
+
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                console.log(result)
+
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+
+                dispatch(setUser({
+                    email: result.user.email,
+                    id: result.user.uid,
+                    token: credential.accessToken,
+                }));
+                navigate('/');
+            })
+            .catch(console.error)
     }
 
     function handleSubmit(e) {
@@ -47,7 +69,7 @@ const Registration = () => {
             <main className={styles.wrapper}>
                 <div className={styles.headWrapper}>
                     <div className={styles.headButtonWrapper}>
-                        <Link href="/">
+                        <Link to="/">
                             <PrimaryButton icon={icon}/>
                         </Link>
                     </div>
@@ -93,8 +115,9 @@ const Registration = () => {
                 <div className={styles.methodsWrapper}>
                     <span>Или продолжите с </span>
                     <div className={styles.methodsInnerWrapper}>
-                        <img src={google} alt="google"/>
-                        <img src={fb} alt="fb"/>
+                        <span onClick={handleGoogleAuth}>
+                            <img src={google} alt="google" />
+                        </span>
                     </div>
 
                     <div className={styles.regWrapper}>
